@@ -5,6 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Spider {
+<<<<<<< HEAD
+    class FileManager {
+=======
     class FIleManager {
         private string rootPath =                   //缓存的根目录绝对路径
             @"C:\User\Public\Documents\MovieCache\";
@@ -25,5 +28,6 @@ namespace Spider {
         public void setPath(MovieItem movie) {
              finalPath = rootPath + movie.Category + "\\" + movie.Name;
         }
+>>>>>>> 68b714af3a0f3e133c37760817d380710edaa024
     }
 }
