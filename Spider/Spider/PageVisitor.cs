@@ -33,9 +33,9 @@ namespace Spider {
         }
 
 
-        public bool downloadFileByUrl(string url, string savePath, string fileName) {
+        public bool downloadFileByUrl(string url, string path, string fileName) {
             try {
-                webClient.DownloadFile(url, savePath + fileName + getSuffixByUrl(url));
+                webClient.DownloadFile(url, path + fileName + "." + getSuffixByUrl(url));
             }catch(Exception e) {
                 Debug.Print(e.Message);
                 return false;

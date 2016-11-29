@@ -3,21 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace Spider {
-<<<<<<< HEAD
     class FileManager {
-=======
-    class FIleManager {
-        private string rootPath =                   //缓存的根目录绝对路径
-            @"C:\User\Public\Documents\MovieCache\";
+        public static string rootPath =                   //缓存的根目录绝对路径
+            @"C:\User\" + System.Environment.UserName + @"\Documents\MovieCache\";
         //private string categoryPath = "\\";       //根目录下的分类文件夹名
         //private string namePath = "\\";           //以电影名为名的文件夹
         private string finalPath;                   //电影储存的绝对路径
-        private static FIleManager instance;
-        public static FIleManager getInstance() {
+        private static FileManager instance;
+        public static FileManager getInstance() {
             if (instance == null)
-                instance = new FIleManager();
+                instance = new FileManager();
             return instance;
         }
 
@@ -28,6 +26,11 @@ namespace Spider {
         public void setPath(MovieItem movie) {
              finalPath = rootPath + movie.Category + "\\" + movie.Name;
         }
->>>>>>> 68b714af3a0f3e133c37760817d380710edaa024
+
+        private void checkRootPathExist() {
+            if (!Directory.Exists(rootPath))//如果不存在就创建file文件夹
+                Directory.CreateDirectory(rootPath);
+        }
+
     }
 }

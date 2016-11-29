@@ -15,6 +15,8 @@ namespace Spider {
             get { return name; }
         }
 
+        public bool isDownload = false; //该项目是否被下载
+
         private string translatedTerm;  //译名
         public string TranslatedTerm {
             set { translatedTerm = value; }
@@ -74,6 +76,8 @@ namespace Spider {
             set { category = value; }
             get { return category; }
         }
+
+
         /// <summary>
         /// MovieItem的构造函数,除了片名和分类外，其他参数有默认值null，分类的默认值为default，片名无默认值
         /// </summary>
@@ -104,5 +108,8 @@ namespace Spider {
             Category = category;
         }
 
+        public void download() {
+
+        }
     }
 }
