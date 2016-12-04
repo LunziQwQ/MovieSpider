@@ -14,10 +14,7 @@ namespace Spider {
             return "";
         }
 
-        //将获得的电影列表添加到movieDB
-        public void addItem() {
-
-        }
+        
 
         public bool checkConnect() {
             string TestURL = "66ys.cc";

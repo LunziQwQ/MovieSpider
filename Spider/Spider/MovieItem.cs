@@ -109,7 +109,12 @@ namespace Spider {
         }
 
         public void download() {
+            
+        }
 
+        public static MovieItem create(string str) {
+            MovieItem temp = new MovieItem();
+            return temp;
         }
     }
 }

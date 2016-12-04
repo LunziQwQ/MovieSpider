@@ -23,5 +23,9 @@ namespace Spider {
             return false;
         }
 
+        //add MovieItem to movieList
+        public void addItem(MovieItem temp) {
+            movieList.Add(temp);
+        }
     }
 }
