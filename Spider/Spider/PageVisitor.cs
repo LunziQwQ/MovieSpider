@@ -23,6 +23,7 @@ namespace Spider {
                 Debug.Print(e.Message);
                 return "Error";
             }
+            
             return coding.GetString(_tempData);
         }
         //获取url文件的后缀名（不带点）        
@@ -32,7 +33,13 @@ namespace Spider {
             return _temp[_temp.Length - 1];
         }
 
-
+        /// <summary>
+        /// 根据URL下载文件
+        /// </summary>
+        /// <param name="url">要下载的文件URL</param>
+        /// <param name="path">要存放下载文件的路径（末端带/）</param>
+        /// <param name="fileName">定义下载的文件名（不包含后缀名）</param>
+        /// <returns></returns>
         public bool downloadFileByUrl(string url, string path, string fileName) {
             try {
                 webClient.DownloadFile(url, path + fileName + "." + getSuffixByUrl(url));
@@ -42,7 +49,5 @@ namespace Spider {
             }
             return true;
         }
-
-
     }
 }
