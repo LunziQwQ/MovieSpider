@@ -35,7 +35,7 @@
             this.btn_Grab = new System.Windows.Forms.Button();
             this.groupBox_Local = new System.Windows.Forms.GroupBox();
             this.treeView1 = new System.Windows.Forms.TreeView();
-            this.label2 = new System.Windows.Forms.Label();
+            this.label_spaceUsage = new System.Windows.Forms.Label();
             this.staticLabel2 = new System.Windows.Forms.Label();
             this.label_ItemCount = new System.Windows.Forms.Label();
             this.staticLabel1 = new System.Windows.Forms.Label();
@@ -149,7 +149,7 @@
             // groupBox_Local
             // 
             this.groupBox_Local.Controls.Add(this.treeView1);
-            this.groupBox_Local.Controls.Add(this.label2);
+            this.groupBox_Local.Controls.Add(this.label_spaceUsage);
             this.groupBox_Local.Controls.Add(this.staticLabel2);
             this.groupBox_Local.Controls.Add(this.label_ItemCount);
             this.groupBox_Local.Controls.Add(this.staticLabel1);
@@ -171,14 +171,13 @@
             this.treeView1.Size = new System.Drawing.Size(349, 348);
             this.treeView1.TabIndex = 7;
             // 
-            // label2
+            // label_spaceUsage
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(45, 130);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(54, 25);
-            this.label2.TabIndex = 6;
-            this.label2.Text = "NaN";
+            this.label_spaceUsage.AutoSize = true;
+            this.label_spaceUsage.Location = new System.Drawing.Point(45, 130);
+            this.label_spaceUsage.Name = "label_spaceUsage";
+            this.label_spaceUsage.Size = new System.Drawing.Size(0, 25);
+            this.label_spaceUsage.TabIndex = 6;
             // 
             // staticLabel2
             // 
@@ -195,9 +194,8 @@
             this.label_ItemCount.AutoSize = true;
             this.label_ItemCount.Location = new System.Drawing.Point(45, 72);
             this.label_ItemCount.Name = "label_ItemCount";
-            this.label_ItemCount.Size = new System.Drawing.Size(54, 25);
+            this.label_ItemCount.Size = new System.Drawing.Size(0, 25);
             this.label_ItemCount.TabIndex = 4;
-            this.label_ItemCount.Text = "NaN";
             // 
             // staticLabel1
             // 
@@ -271,7 +269,7 @@
         private System.Windows.Forms.Button btn_Reload;
         private System.Windows.Forms.Label staticLabel2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label_spaceUsage;
         private System.Windows.Forms.TextBox textBox_setDeep;
         private System.Windows.Forms.TextBox textBox_setInterval;
         private System.Windows.Forms.Label label1;

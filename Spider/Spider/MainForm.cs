@@ -64,14 +64,20 @@ namespace Spider {
         private void timer_Main_Tick(object sender, EventArgs e) {
             TickCount++;
             if(TickCount == 1) {
+                updateUsage();
                 bool isNetStatusOK = netSpider.checkConnect();
                 label_netStatus.Text = isNetStatusOK ? "OK" : "Failed";
                 label_netStatus.ForeColor = isNetStatusOK ? Color.Green : Color.Red;
             }
 
-            
+            if (TickCount % 100 == 0)
+                updateUsage();
         }
         
+        private void updateUsage() {
+            label_spaceUsage.Text = (fileManager.getCacheUsage() / 1000).ToString() + " KB";
+        }
+
         private void btn_Grab_Click(object sender, EventArgs e) {
             if (!netSpider.isNetStatusOK) {
                 MessageBox.Show("Net status is Failed.The Spider can't grab without internet.");

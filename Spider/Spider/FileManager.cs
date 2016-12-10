@@ -60,5 +60,23 @@ namespace Spider {
             }
             return strList;
         }
+
+        private long getFolderSize(DirectoryInfo dirInfo) {
+            long size = 0;
+            // Add file sizes.
+            FileInfo[] fileInfolist = dirInfo.GetFiles();
+            foreach (FileInfo x in fileInfolist) {
+                size += x.Length;
+            }
+            // Add subdirectory sizes.
+            DirectoryInfo[] dirList = dirInfo.GetDirectories();
+            foreach (DirectoryInfo x in dirList) {
+                size += getFolderSize(x);
+            }
+            return size;
+        }
+        public long getCacheUsage() {
+            return getFolderSize(new DirectoryInfo(rootPath));
+        }
     }
 }
