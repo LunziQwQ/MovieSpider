@@ -77,7 +77,11 @@ namespace Spider {
             get { return category; }
         }
 
-
+        private string cover;
+        public string Cover {
+            set { cover = value; }
+            get { return cover; }
+        }
         /// <summary>
         /// MovieItem的构造函数,除了片名和分类外，其他参数有默认值null，分类的默认值为default，片名无默认值
         /// </summary>
@@ -91,10 +95,11 @@ namespace Spider {
         /// <param name="leadingRole">主演</param>
         /// <param name="summary">概括/简介</param>
         /// <param name="area">地区/国家</param>
-        public MovieItem(string name, string translatedTerm  =null, string time = null,
-            string language = null, string lengthOfFilm = null, string imdbScore = null,
-            string director = null, string leadingRole = null, string summary = null,
-            string area = null, string category = "default") {
+        /// <param name="cover">封面链接</param>
+        public MovieItem(string name, string translatedTerm  = "", string time = "",
+            string language = "", string lengthOfFilm = "", string imdbScore = "",
+            string director = "", string leadingRole = "", string summary = "",
+            string area = "", string category = "default", string cover = "") {
             Name = name;
             TranslatedTerm = translatedTerm;
             Time = time;
@@ -106,6 +111,7 @@ namespace Spider {
             Summary = summary;
             Area = area;
             Category = category;
+            Cover = cover;
         }
 
         public void download() {

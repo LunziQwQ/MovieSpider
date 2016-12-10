@@ -27,10 +27,22 @@ namespace Spider {
              finalPath = rootPath + movie.Category + "\\" + movie.Name;
         }
 
-        private void checkRootPathExist() {
+        public string getPath(MovieItem movie) {
+            return rootPath + movie.Category + "\\" + movie.Name;
+        }
+
+        private void createRootPathExist() {
             if (!Directory.Exists(rootPath))//如果不存在就创建file文件夹
                 Directory.CreateDirectory(rootPath);
         }
 
+        //删除该电影在本地的缓存文件
+        public void deleteMovieItem(MovieItem movie) {
+            string path = getPath(movie);
+            if (!Directory.Exists(path))
+                ;//(显示无该电影目录)
+            else
+                File.Delete(path);
+        }
     }
 }
