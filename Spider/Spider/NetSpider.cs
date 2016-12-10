@@ -9,7 +9,7 @@ using System.Diagnostics;
 namespace Spider {
     class NetSpider {
         public static string SourceURL = @"http://66ys.cc";
-
+        public bool isNetStatusOK;
         public string getUrl() {
             return "";
         }
@@ -21,10 +21,12 @@ namespace Spider {
             Ping ping = new Ping();
             try {
                 PingReply pingReply = ping.Send(TestURL);
-                return pingReply.Status == IPStatus.Success;
+                isNetStatusOK = (pingReply.Status == IPStatus.Success);
+                return isNetStatusOK;
             }catch(Exception e) {
                 Debug.Print(e.Message);
-                return false;
+                isNetStatusOK = false;
+                return isNetStatusOK;
             }
         }
 

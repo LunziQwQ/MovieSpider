@@ -23,7 +23,10 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
+            this.components = new System.ComponentModel.Container();
             this.groupBox_Net = new System.Windows.Forms.GroupBox();
+            this.label_netStatus = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.textBox_setInterval = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.btn_Stop = new System.Windows.Forms.Button();
@@ -39,12 +42,15 @@
             this.btn_Reload = new System.Windows.Forms.Button();
             this.btn_Remove = new System.Windows.Forms.Button();
             this.btn_CopyLink = new System.Windows.Forms.Button();
+            this.timer_Main = new System.Windows.Forms.Timer(this.components);
             this.groupBox_Net.SuspendLayout();
             this.groupBox_Local.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox_Net
             // 
+            this.groupBox_Net.Controls.Add(this.label_netStatus);
+            this.groupBox_Net.Controls.Add(this.label4);
             this.groupBox_Net.Controls.Add(this.textBox_setInterval);
             this.groupBox_Net.Controls.Add(this.label1);
             this.groupBox_Net.Controls.Add(this.btn_Stop);
@@ -58,6 +64,26 @@
             this.groupBox_Net.TabIndex = 0;
             this.groupBox_Net.TabStop = false;
             this.groupBox_Net.Text = "NetSpider";
+            // 
+            // label_netStatus
+            // 
+            this.label_netStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_netStatus.Location = new System.Drawing.Point(268, 46);
+            this.label_netStatus.Name = "label_netStatus";
+            this.label_netStatus.Size = new System.Drawing.Size(131, 66);
+            this.label_netStatus.TabIndex = 9;
+            this.label_netStatus.Text = "Testing";
+            this.label_netStatus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label4
+            // 
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(268, 26);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(131, 20);
+            this.label4.TabIndex = 8;
+            this.label4.Text = "Net status:";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // textBox_setInterval
             // 
@@ -81,9 +107,9 @@
             // 
             // btn_Stop
             // 
-            this.btn_Stop.Location = new System.Drawing.Point(327, 41);
+            this.btn_Stop.Location = new System.Drawing.Point(405, 85);
             this.btn_Stop.Name = "btn_Stop";
-            this.btn_Stop.Size = new System.Drawing.Size(67, 64);
+            this.btn_Stop.Size = new System.Drawing.Size(110, 45);
             this.btn_Stop.TabIndex = 6;
             this.btn_Stop.Text = "Stop :(";
             this.btn_Stop.UseVisualStyleBackColor = true;
@@ -111,13 +137,14 @@
             // btn_Grab
             // 
             this.btn_Grab.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_Grab.Location = new System.Drawing.Point(405, 21);
+            this.btn_Grab.Location = new System.Drawing.Point(405, 15);
             this.btn_Grab.Margin = new System.Windows.Forms.Padding(8);
             this.btn_Grab.Name = "btn_Grab";
-            this.btn_Grab.Size = new System.Drawing.Size(110, 95);
+            this.btn_Grab.Size = new System.Drawing.Size(110, 62);
             this.btn_Grab.TabIndex = 1;
             this.btn_Grab.Text = "Grab!";
             this.btn_Grab.UseVisualStyleBackColor = true;
+            this.btn_Grab.Click += new System.EventHandler(this.btn_Grab_Click);
             // 
             // groupBox_Local
             // 
@@ -209,6 +236,12 @@
             this.btn_CopyLink.Text = "Copy Link";
             this.btn_CopyLink.UseVisualStyleBackColor = true;
             // 
+            // timer_Main
+            // 
+            this.timer_Main.Enabled = true;
+            this.timer_Main.Interval = 10;
+            this.timer_Main.Tick += new System.EventHandler(this.timer_Main_Tick);
+            // 
             // MainForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -217,6 +250,7 @@
             this.Controls.Add(this.groupBox_Net);
             this.Name = "MainForm";
             this.Text = "MovieSpider";
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.groupBox_Net.ResumeLayout(false);
             this.groupBox_Net.PerformLayout();
             this.groupBox_Local.ResumeLayout(false);
@@ -243,6 +277,9 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btn_Stop;
         private System.Windows.Forms.TreeView treeView1;
+        private System.Windows.Forms.Label label_netStatus;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Timer timer_Main;
     }
 }
 

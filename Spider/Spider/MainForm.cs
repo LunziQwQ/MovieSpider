@@ -11,14 +11,10 @@ using System.Diagnostics;
 
 namespace Spider {
     public partial class MainForm: Form {
+        PageVisitor pageVisitor = new PageVisitor();
+        NetSpider netSpider = new NetSpider();
         public MainForm() {
             InitializeComponent();
-            PageVisitor pageVisitor = new PageVisitor();
-            NetSpider netSpider = new NetSpider();
-            //Debug.Print(pageVisitor.getHtmlTextByURL("http://66ys.cc", Encoding.Default));
-            Debug.Print(pageVisitor.downloadFileByUrl("https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo/logo_redBlue.png", FileManager.rootPath, "cover").ToString());
-            Debug.Print(System.Environment.UserName);
-            Debug.Print(netSpider.checkConnect().ToString());
         }
         
         private string _setDeepTemp = "1", _setIntervalTemp = "10";
@@ -36,6 +32,28 @@ namespace Spider {
             if (Int32.Parse(textBox_setInterval.Text) < 1)
                 textBox_setInterval.Text = "1";
             _setIntervalTemp = textBox_setInterval.Text;
+        }
+
+        private void MainForm_Load(object sender, EventArgs e) {
+            //Debug.Print(pageVisitor.getHtmlTextByURL("http://66ys.cc", Encoding.Default));
+            //Debug.Print(pageVisitor.downloadFileByUrl("https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo/logo_redBlue.png", FileManager.rootPath, "cover").ToString());
+            Debug.Print(System.Environment.UserName);
+            
+        }
+        private int TickCount = 0;
+        private void timer_Main_Tick(object sender, EventArgs e) {
+            TickCount++;
+            if(TickCount == 1) {
+                bool isNetStatusOK = netSpider.checkConnect();
+                label_netStatus.Text = isNetStatusOK ? "OK" : "Failed";
+                label_netStatus.ForeColor = isNetStatusOK ? Color.Green : Color.Red;
+            }
+        }
+
+        private void btn_Grab_Click(object sender, EventArgs e) {
+            if (!netSpider.isNetStatusOK) {
+                
+            }
         }
 
         private void textBox_setDeep_TextChanged(object sender, EventArgs e) {

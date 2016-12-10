@@ -96,7 +96,7 @@ namespace Spider {
         /// <param name="summary">概括/简介</param>
         /// <param name="area">地区/国家</param>
         /// <param name="cover">封面链接</param>
-        public MovieItem(string name, string translatedTerm  = "", string time = "",
+        public MovieItem(string name ="", string translatedTerm  = "", string time = "",
             string language = "", string lengthOfFilm = "", string imdbScore = "",
             string director = "", string leadingRole = "", string summary = "",
             string area = "", string category = "default", string cover = "") {
