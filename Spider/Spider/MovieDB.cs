@@ -10,7 +10,8 @@ namespace Spider {
     class MovieDB {
         public FileManager fileManager = FileManager.getInstance();
         public List<MovieItem> movieList = new List<MovieItem>();
-        
+        public List<string> categoryList = new List<string>();
+
 
         public bool downloadMovieInfoFromInternet() {
             
@@ -20,7 +21,7 @@ namespace Spider {
         public bool initMovieDBFromLocalFile() {
             try {
                 foreach (string x in fileManager.getStringByLocalFile()) {
-                    movieList.Add(MovieItem.create(x));
+                    addItem(MovieItem.create(x));
                 }
             }catch(Exception e) {
                 Debug.Print(e.Message);
@@ -32,6 +33,11 @@ namespace Spider {
         //add MovieItem to movieList
         public void addItem(MovieItem temp) {
             movieList.Add(temp);
+            foreach(string x in categoryList) {
+                if (temp.Category == x)
+                    return;
+            }
+            categoryList.Add(temp.Category);
         }
     }
 }

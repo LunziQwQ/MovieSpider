@@ -36,7 +36,7 @@ namespace Spider {
             if (!Directory.Exists(path)) //(显示无该电影目录)
                 System.Windows.Forms.MessageBox.Show("No this movie Exist.");
             else
-                File.Delete(path);
+                Directory.Delete(path, true);
         }
         
         public bool saveMovieItem(MovieItem movie) {

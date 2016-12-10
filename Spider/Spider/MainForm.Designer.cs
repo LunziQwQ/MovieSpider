@@ -24,6 +24,7 @@
         /// </summary>
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.groupBox_Net = new System.Windows.Forms.GroupBox();
             this.label_netStatus = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -34,7 +35,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.btn_Grab = new System.Windows.Forms.Button();
             this.groupBox_Local = new System.Windows.Forms.GroupBox();
-            this.treeView1 = new System.Windows.Forms.TreeView();
+            this.treeView_categoryList = new System.Windows.Forms.TreeView();
             this.label_spaceUsage = new System.Windows.Forms.Label();
             this.staticLabel2 = new System.Windows.Forms.Label();
             this.label_ItemCount = new System.Windows.Forms.Label();
@@ -43,6 +44,7 @@
             this.btn_Remove = new System.Windows.Forms.Button();
             this.btn_CopyLink = new System.Windows.Forms.Button();
             this.timer_Main = new System.Windows.Forms.Timer(this.components);
+            this.treeView_movieList = new System.Windows.Forms.TreeView();
             this.groupBox_Net.SuspendLayout();
             this.groupBox_Local.SuspendLayout();
             this.SuspendLayout();
@@ -90,7 +92,7 @@
             this.textBox_setInterval.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox_setInterval.Location = new System.Drawing.Point(148, 85);
             this.textBox_setInterval.Name = "textBox_setInterval";
-            this.textBox_setInterval.Size = new System.Drawing.Size(114, 27);
+            this.textBox_setInterval.Size = new System.Drawing.Size(114, 23);
             this.textBox_setInterval.TabIndex = 8;
             this.textBox_setInterval.Text = "100";
             this.textBox_setInterval.TextChanged += new System.EventHandler(this.textBox_setInterval_TextChanged);
@@ -101,13 +103,13 @@
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(6, 88);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(136, 20);
+            this.label1.Size = new System.Drawing.Size(116, 17);
             this.label1.TabIndex = 7;
             this.label1.Text = "Set grab interval:";
             // 
             // btn_Stop
             // 
-            this.btn_Stop.Location = new System.Drawing.Point(405, 85);
+            this.btn_Stop.Location = new System.Drawing.Point(405, 81);
             this.btn_Stop.Name = "btn_Stop";
             this.btn_Stop.Size = new System.Drawing.Size(110, 45);
             this.btn_Stop.TabIndex = 6;
@@ -119,7 +121,7 @@
             this.textBox_setDeep.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox_setDeep.Location = new System.Drawing.Point(148, 38);
             this.textBox_setDeep.Name = "textBox_setDeep";
-            this.textBox_setDeep.Size = new System.Drawing.Size(114, 27);
+            this.textBox_setDeep.Size = new System.Drawing.Size(114, 23);
             this.textBox_setDeep.TabIndex = 5;
             this.textBox_setDeep.Text = "100";
             this.textBox_setDeep.TextChanged += new System.EventHandler(this.textBox_setDeep_TextChanged);
@@ -130,7 +132,7 @@
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(6, 41);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(118, 20);
+            this.label3.Size = new System.Drawing.Size(102, 17);
             this.label3.TabIndex = 4;
             this.label3.Text = "Set grab deep:";
             // 
@@ -148,7 +150,8 @@
             // 
             // groupBox_Local
             // 
-            this.groupBox_Local.Controls.Add(this.treeView1);
+            this.groupBox_Local.Controls.Add(this.treeView_movieList);
+            this.groupBox_Local.Controls.Add(this.treeView_categoryList);
             this.groupBox_Local.Controls.Add(this.label_spaceUsage);
             this.groupBox_Local.Controls.Add(this.staticLabel2);
             this.groupBox_Local.Controls.Add(this.label_ItemCount);
@@ -164,19 +167,21 @@
             this.groupBox_Local.TabStop = false;
             this.groupBox_Local.Text = "Local Viewer";
             // 
-            // treeView1
+            // treeView_categoryList
             // 
-            this.treeView1.Location = new System.Drawing.Point(163, 29);
-            this.treeView1.Name = "treeView1";
-            this.treeView1.Size = new System.Drawing.Size(349, 348);
-            this.treeView1.TabIndex = 7;
+            this.treeView_categoryList.LabelEdit = true;
+            this.treeView_categoryList.Location = new System.Drawing.Point(163, 29);
+            this.treeView_categoryList.Name = "treeView_categoryList";
+            this.treeView_categoryList.Size = new System.Drawing.Size(127, 348);
+            this.treeView_categoryList.TabIndex = 7;
+            this.treeView_categoryList.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView_categoryList_AfterSelect);
             // 
             // label_spaceUsage
             // 
             this.label_spaceUsage.AutoSize = true;
             this.label_spaceUsage.Location = new System.Drawing.Point(45, 130);
             this.label_spaceUsage.Name = "label_spaceUsage";
-            this.label_spaceUsage.Size = new System.Drawing.Size(0, 25);
+            this.label_spaceUsage.Size = new System.Drawing.Size(0, 20);
             this.label_spaceUsage.TabIndex = 6;
             // 
             // staticLabel2
@@ -185,7 +190,7 @@
             this.staticLabel2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.staticLabel2.Location = new System.Drawing.Point(11, 110);
             this.staticLabel2.Name = "staticLabel2";
-            this.staticLabel2.Size = new System.Drawing.Size(121, 20);
+            this.staticLabel2.Size = new System.Drawing.Size(105, 17);
             this.staticLabel2.TabIndex = 5;
             this.staticLabel2.Text = "space usage:";
             // 
@@ -194,7 +199,7 @@
             this.label_ItemCount.AutoSize = true;
             this.label_ItemCount.Location = new System.Drawing.Point(45, 72);
             this.label_ItemCount.Name = "label_ItemCount";
-            this.label_ItemCount.Size = new System.Drawing.Size(0, 25);
+            this.label_ItemCount.Size = new System.Drawing.Size(0, 20);
             this.label_ItemCount.TabIndex = 4;
             // 
             // staticLabel1
@@ -203,7 +208,7 @@
             this.staticLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.staticLabel1.Location = new System.Drawing.Point(11, 52);
             this.staticLabel1.Name = "staticLabel1";
-            this.staticLabel1.Size = new System.Drawing.Size(103, 20);
+            this.staticLabel1.Size = new System.Drawing.Size(88, 17);
             this.staticLabel1.TabIndex = 3;
             this.staticLabel1.Text = "item count:";
             // 
@@ -224,6 +229,7 @@
             this.btn_Remove.TabIndex = 1;
             this.btn_Remove.Text = "Remove";
             this.btn_Remove.UseVisualStyleBackColor = true;
+            this.btn_Remove.Click += new System.EventHandler(this.btn_Remove_Click);
             // 
             // btn_CopyLink
             // 
@@ -233,6 +239,7 @@
             this.btn_CopyLink.TabIndex = 0;
             this.btn_CopyLink.Text = "Copy Link";
             this.btn_CopyLink.UseVisualStyleBackColor = true;
+            this.btn_CopyLink.Click += new System.EventHandler(this.btn_CopyLink_Click);
             // 
             // timer_Main
             // 
@@ -240,12 +247,20 @@
             this.timer_Main.Interval = 10;
             this.timer_Main.Tick += new System.EventHandler(this.timer_Main_Tick);
             // 
+            // treeView_movieList
+            // 
+            this.treeView_movieList.Location = new System.Drawing.Point(312, 29);
+            this.treeView_movieList.Name = "treeView_movieList";
+            this.treeView_movieList.Size = new System.Drawing.Size(203, 348);
+            this.treeView_movieList.TabIndex = 8;
+            // 
             // MainForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(552, 553);
             this.Controls.Add(this.groupBox_Local);
             this.Controls.Add(this.groupBox_Net);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
             this.Text = "MovieSpider";
             this.Load += new System.EventHandler(this.MainForm_Load);
@@ -274,10 +289,11 @@
         private System.Windows.Forms.TextBox textBox_setInterval;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btn_Stop;
-        private System.Windows.Forms.TreeView treeView1;
+        private System.Windows.Forms.TreeView treeView_categoryList;
         private System.Windows.Forms.Label label_netStatus;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Timer timer_Main;
+        private System.Windows.Forms.TreeView treeView_movieList;
     }
 }
 
