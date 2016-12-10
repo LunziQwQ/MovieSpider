@@ -55,12 +55,21 @@
     </Compile>
     <Compile Include="MovieItem.cs" />
     <Compile Include="MovieDB.cs" />
+    <Compile Include="MovieViewerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MovieViewerForm.Designer.cs">
+      <DependentUpon>MovieViewerForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="NetSpider.cs" />
     <Compile Include="PageVisitor.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MovieViewerForm.resx">
+      <DependentUpon>MovieViewerForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
