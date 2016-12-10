@@ -11,20 +11,14 @@ namespace Spider {
             @"C:\User\" + System.Environment.UserName + @"\Documents\MovieCache\";
         //private string categoryPath = "\\";       //根目录下的分类文件夹名
         //private string namePath = "\\";           //以电影名为名的文件夹
-        private string finalPath;                   //电影储存的绝对路径
+        private FileManager() {
+            createRootPathExist();
+        }
         private static FileManager instance;
         public static FileManager getInstance() {
             if (instance == null)
                 instance = new FileManager();
             return instance;
-        }
-
-        /// <summary>
-        /// 设置电影储存的目录
-        /// </summary>
-        /// <param name="movie"></param>
-        public void setPath(MovieItem movie) {
-             finalPath = rootPath + movie.Category + "\\" + movie.Name;
         }
 
         public string getPath(MovieItem movie) {
@@ -39,10 +33,32 @@ namespace Spider {
         //删除该电影在本地的缓存文件
         public void deleteMovieItem(MovieItem movie) {
             string path = getPath(movie);
-            if (!Directory.Exists(path))
-                ;//(显示无该电影目录)
+            if (!Directory.Exists(path)) //(显示无该电影目录)
+                System.Windows.Forms.MessageBox.Show("No this movie Exist.");
             else
                 File.Delete(path);
+        }
+        
+        public bool saveMovieItem(MovieItem movie) {
+            string fileName = getPath(movie) + "\\movieInfo.txt";
+            try {
+                File.WriteAllText(fileName, movie.getMovieInfoString());
+            }catch (Exception e) {
+                System.Windows.Forms.MessageBox.Show(e.Message);
+                return false;
+            }
+            return true;
+        }
+
+        public List<string> getStringByLocalFile() {
+            List<string> strList = new List<string>();
+            DirectoryInfo movieCacheFolder = new DirectoryInfo(rootPath);
+            foreach(DirectoryInfo cateoryFolder in movieCacheFolder.GetDirectories()) {
+                foreach(DirectoryInfo movieFolder in cateoryFolder.GetDirectories()) {
+                    strList.Add(File.ReadAllText(movieFolder.FullName + "\\movieInfo.txt"));
+                }
+            }
+            return strList;
         }
     }
 }

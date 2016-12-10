@@ -8,19 +8,25 @@ using System.Diagnostics;
 
 namespace Spider {
     class MovieDB {
-        
+        public FileManager fileManager = FileManager.getInstance();
         public List<MovieItem> movieList = new List<MovieItem>();
+        
 
+        public bool downloadMovieInfoFromInternet() {
+            
+            return false;
+        }
 
-        public bool downloadmovieItem(int index) {
+        public bool initMovieDBFromLocalFile() {
             try {
-                movieList[index].download();
-            } catch (Exception e) {
+                foreach (string x in fileManager.getStringByLocalFile()) {
+                    movieList.Add(MovieItem.create(x));
+                }
+            }catch(Exception e) {
                 Debug.Print(e.Message);
                 return false;
             }
-            movieList[index].isDownload = true;
-            return false;
+            return true;
         }
 
         //add MovieItem to movieList

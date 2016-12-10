@@ -9,7 +9,8 @@ namespace Spider {
     /// 数据类：一部电影
     /// </summary>
     public class MovieItem {
-        private string name;            //片名
+        private string name;            //片名\
+        FileManager fileManager = FileManager.getInstance();
         public string Name {
             set { name = value; }
             get { return name; }
@@ -48,7 +49,7 @@ namespace Spider {
         }
 
         private string director;        //导演
-        public string Director{
+        public string Director {
             set { director = value; }
             get { return director; }
         }
@@ -96,7 +97,7 @@ namespace Spider {
         /// <param name="summary">概括/简介</param>
         /// <param name="area">地区/国家</param>
         /// <param name="cover">封面链接</param>
-        public MovieItem(string name ="", string translatedTerm  = "", string time = "",
+        public MovieItem(string name = "", string translatedTerm = "", string time = "",
             string language = "", string lengthOfFilm = "", string imdbScore = "",
             string director = "", string leadingRole = "", string summary = "",
             string area = "", string category = "default", string cover = "") {
@@ -114,13 +115,41 @@ namespace Spider {
             Cover = cover;
         }
 
-        public void download() {
-            
+        public bool save() {
+            return fileManager.saveMovieItem(this);
         }
 
-        public static MovieItem create(string str) {
-            MovieItem temp = new MovieItem();
-            return temp;
+        public string getMovieInfoString() {
+            return Name + "&" +
+            TranslatedTerm + "&" +
+            Time + "&" +
+            Language + "&" +
+            LengthOfFilm + "&" +
+            IMDBScore + "&" +
+            Director + "&" +
+            LeadingRole + "&" +
+            Summary + "&" +
+            Area + "&" +
+            Category + "&" +
+            Cover;
+        }
+
+        public static MovieItem create(string movieInfo) {
+            MovieItem tempItem = new MovieItem();
+            string[] temp = movieInfo.Split('&');
+            tempItem.Name = temp[0];
+            tempItem.TranslatedTerm = temp[1];
+            tempItem.Time = temp[2];
+            tempItem.Language = temp[3];
+            tempItem.LengthOfFilm = temp[4];
+            tempItem.IMDBScore = temp[5];
+            tempItem.Director = temp[6];
+            tempItem.LeadingRole = temp[7];
+            tempItem.Summary = temp[8];
+            tempItem.Area = temp[9];
+            tempItem.Category = temp[10];
+            tempItem.Cover = temp[11];
+            return tempItem;
         }
     }
 }
