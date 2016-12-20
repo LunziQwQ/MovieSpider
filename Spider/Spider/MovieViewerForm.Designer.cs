@@ -24,7 +24,7 @@
         /// </summary>
         private void InitializeComponent() {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MovieViewerForm));
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.image_cover = new System.Windows.Forms.PictureBox();
             this.label_name = new System.Windows.Forms.Label();
             this.label_trans = new System.Windows.Forms.Label();
             this.label_time = new System.Windows.Forms.Label();
@@ -36,14 +36,14 @@
             this.label_area = new System.Windows.Forms.Label();
             this.label_category = new System.Windows.Forms.Label();
             this.label_summary = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.image_cover)).BeginInit();
             this.SuspendLayout();
             // 
-            // pictureBox1
+            // image_cover
             // 
-            resources.ApplyResources(this.pictureBox1, "pictureBox1");
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.TabStop = false;
+            resources.ApplyResources(this.image_cover, "image_cover");
+            this.image_cover.Name = "image_cover";
+            this.image_cover.TabStop = false;
             // 
             // label_name
             // 
@@ -116,11 +116,11 @@
             this.Controls.Add(this.label_time);
             this.Controls.Add(this.label_trans);
             this.Controls.Add(this.label_name);
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.image_cover);
             this.Cursor = System.Windows.Forms.Cursors.Default;
             this.Name = "MovieViewerForm";
             this.ShowInTaskbar = false;
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.image_cover)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -128,7 +128,7 @@
 
         #endregion
 
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox image_cover;
         private System.Windows.Forms.Label label_name;
         private System.Windows.Forms.Label label_trans;
         private System.Windows.Forms.Label label_time;

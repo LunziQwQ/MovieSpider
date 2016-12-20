@@ -35,7 +35,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.btn_Grab = new System.Windows.Forms.Button();
             this.groupBox_Local = new System.Windows.Forms.GroupBox();
-            this.treeView_categoryList = new System.Windows.Forms.TreeView();
             this.label_spaceUsage = new System.Windows.Forms.Label();
             this.staticLabel2 = new System.Windows.Forms.Label();
             this.label_ItemCount = new System.Windows.Forms.Label();
@@ -44,7 +43,8 @@
             this.btn_Remove = new System.Windows.Forms.Button();
             this.btn_CopyLink = new System.Windows.Forms.Button();
             this.timer_Main = new System.Windows.Forms.Timer(this.components);
-            this.treeView_movieList = new System.Windows.Forms.TreeView();
+            this.listBox_category = new System.Windows.Forms.ListBox();
+            this.listBox_movie = new System.Windows.Forms.ListBox();
             this.groupBox_Net.SuspendLayout();
             this.groupBox_Local.SuspendLayout();
             this.SuspendLayout();
@@ -150,8 +150,8 @@
             // 
             // groupBox_Local
             // 
-            this.groupBox_Local.Controls.Add(this.treeView_movieList);
-            this.groupBox_Local.Controls.Add(this.treeView_categoryList);
+            this.groupBox_Local.Controls.Add(this.listBox_movie);
+            this.groupBox_Local.Controls.Add(this.listBox_category);
             this.groupBox_Local.Controls.Add(this.label_spaceUsage);
             this.groupBox_Local.Controls.Add(this.staticLabel2);
             this.groupBox_Local.Controls.Add(this.label_ItemCount);
@@ -166,15 +166,6 @@
             this.groupBox_Local.TabIndex = 2;
             this.groupBox_Local.TabStop = false;
             this.groupBox_Local.Text = "Local Viewer";
-            // 
-            // treeView_categoryList
-            // 
-            this.treeView_categoryList.LabelEdit = true;
-            this.treeView_categoryList.Location = new System.Drawing.Point(163, 29);
-            this.treeView_categoryList.Name = "treeView_categoryList";
-            this.treeView_categoryList.Size = new System.Drawing.Size(127, 348);
-            this.treeView_categoryList.TabIndex = 7;
-            this.treeView_categoryList.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView_categoryList_AfterSelect);
             // 
             // label_spaceUsage
             // 
@@ -220,6 +211,7 @@
             this.btn_Reload.TabIndex = 2;
             this.btn_Reload.Text = "Reload";
             this.btn_Reload.UseVisualStyleBackColor = true;
+            this.btn_Reload.Click += new System.EventHandler(this.btn_Reload_Click);
             // 
             // btn_Remove
             // 
@@ -247,12 +239,25 @@
             this.timer_Main.Interval = 10;
             this.timer_Main.Tick += new System.EventHandler(this.timer_Main_Tick);
             // 
-            // treeView_movieList
+            // listBox_category
             // 
-            this.treeView_movieList.Location = new System.Drawing.Point(312, 29);
-            this.treeView_movieList.Name = "treeView_movieList";
-            this.treeView_movieList.Size = new System.Drawing.Size(203, 348);
-            this.treeView_movieList.TabIndex = 8;
+            this.listBox_category.FormattingEnabled = true;
+            this.listBox_category.ItemHeight = 20;
+            this.listBox_category.Location = new System.Drawing.Point(146, 13);
+            this.listBox_category.Name = "listBox_category";
+            this.listBox_category.Size = new System.Drawing.Size(128, 364);
+            this.listBox_category.TabIndex = 7;
+            this.listBox_category.SelectedIndexChanged += new System.EventHandler(this.listBox_category_SelectedIndexChanged);
+            // 
+            // listBox_movie
+            // 
+            this.listBox_movie.FormattingEnabled = true;
+            this.listBox_movie.ItemHeight = 20;
+            this.listBox_movie.Location = new System.Drawing.Point(280, 13);
+            this.listBox_movie.Name = "listBox_movie";
+            this.listBox_movie.Size = new System.Drawing.Size(235, 364);
+            this.listBox_movie.TabIndex = 8;
+            this.listBox_movie.SelectedIndexChanged += new System.EventHandler(this.listBox_movie_SelectedIndexChanged);
             // 
             // MainForm
             // 
@@ -289,11 +294,11 @@
         private System.Windows.Forms.TextBox textBox_setInterval;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btn_Stop;
-        private System.Windows.Forms.TreeView treeView_categoryList;
         private System.Windows.Forms.Label label_netStatus;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Timer timer_Main;
-        private System.Windows.Forms.TreeView treeView_movieList;
+        private System.Windows.Forms.ListBox listBox_movie;
+        private System.Windows.Forms.ListBox listBox_category;
     }
 }
 

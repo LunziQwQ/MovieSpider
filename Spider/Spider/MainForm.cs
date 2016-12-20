@@ -1,14 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
-using System.IO;
 
 namespace Spider {
     public partial class MainForm: Form {
@@ -16,6 +9,10 @@ namespace Spider {
         NetSpider netSpider = new NetSpider();
         FileManager fileManager = FileManager.getInstance();
         MovieDB movieDB = new MovieDB();
+        public static int width;
+        public static Point location;
+
+        private MovieViewerForm movieViewer;
 
         public MainForm() {
             InitializeComponent();
@@ -63,12 +60,15 @@ namespace Spider {
         private void timer_Main_Tick(object sender, EventArgs e) {
             TickCount++;
             if(TickCount == 1) {
+                width = this.Width;
+                location = this.Location;
                 updateUsage();
                 bool isNetStatusOK = netSpider.checkConnect();
                 label_netStatus.Text = isNetStatusOK ? "OK" : "Failed";
                 label_netStatus.ForeColor = isNetStatusOK ? Color.Green : Color.Red;
                 movieDB.initMovieDBFromLocalFile();
-                treeView_ShowCategoryNodeList();
+                listBox_ShowCategoryItemList();
+                listBox_ShowMovieItemList();
             }
 
             updateItemCount();
@@ -87,14 +87,20 @@ namespace Spider {
         }
         #region Buttons's Events
         private void btn_CopyLink_Click(object sender, EventArgs e) {
-            string text = "Test";
-            // TODO: get the treeview selected for movieItem's info which is download url;
+            string text = movieDB.getItemByName((string)listBox_movie.SelectedItem).DownloadLink;
+            if(text == null || text == "") {
+                MessageBox.Show("Error:未选择电影或电影无效，加入剪切板失败");
+                return;
+            }
             Clipboard.SetDataObject(text, true);
         }
 
         private void btn_Remove_Click(object sender, EventArgs e) {
-            MovieItem mv = new MovieItem();
-            // TODO:get the treeview selected for movieItem
+            MovieItem mv = movieDB.getItemByName((string)listBox_movie.SelectedItem);
+            if (mv.Name == null || mv.Name == "" ) {
+                MessageBox.Show("Error:未选择电影或电影无效，删除失败");
+                return;
+            }
             movieDB.movieList.Remove(mv);
             fileManager.deleteMovieItem(mv);
         }
@@ -110,41 +116,43 @@ namespace Spider {
         #endregion
 
 
-        class TreeNode_Movie : TreeNode {
-            public MovieItem movie;
-            public TreeNode_Movie(MovieItem movie) {
-                this.movie = movie;
-                this.Text = movie.Name;
-            }
-        }
-        class TreeNode_Category: TreeNode {
-            public string category;
-            public TreeNode_Category(string category) {
-                this.category = category;
-                this.Text = category;
-            }
-        }
-
-        private void treeView_ShowCategoryNodeList() {
-            treeView_categoryList.Nodes.Clear();
+        private void listBox_ShowCategoryItemList() {
+            listBox_category.Items.Clear();
             foreach(string x in movieDB.categoryList) {
-                treeView_categoryList.Nodes.Add(new TreeNode_Category(x));
+                listBox_category.Items.Add(x);
             }
         }
 
-        private void treeView_ShowMovieNodeList(string category) {
-            treeView_movieList.Nodes.Clear();
-            foreach(MovieItem x in movieDB.movieList) {
-                if (x.Category == category) {
-                    treeView_movieList.Nodes.Add(new TreeNode_Movie(x));
-                } 
-            }
+        private void listBox_category_SelectedIndexChanged(object sender, EventArgs e) {
+            listBox_ShowMovieItemList((String)listBox_category.SelectedItem);
         }
 
-        private void treeView_categoryList_AfterSelect(object sender, TreeViewEventArgs e) {
-            TreeNode _temp = treeView_movieList.SelectedNode;
-            if (_temp != null) 
-                treeView_ShowMovieNodeList(_temp.Text);
+        private void btn_Reload_Click(object sender, EventArgs e) {
+            listBox_ShowCategoryItemList();
+            listBox_ShowMovieItemList();
+        }
+
+        private void listBox_movie_SelectedIndexChanged(object sender, EventArgs e) {
+            if (movieViewer != null) {
+                movieViewer.Close();
+            }
+            movieViewer = new MovieViewerForm();
+            movieViewer.init(movieDB.getItemByName((string)listBox_movie.SelectedItem));
+        }
+
+        private void listBox_ShowMovieItemList(string category = "undefined") {
+            listBox_movie.Items.Clear();
+            Debug.Print(category);
+            if (category == "undefined" && listBox_category.Items.Count > 0) { 
+                category = (String)listBox_category.Items[0];
+            }
+            if(category != "undefined") { 
+                foreach (MovieItem x in movieDB.movieList) {
+                    if (x.Category == category) {
+                        listBox_movie.Items.Add(x.Name);
+                    }
+                }
+            }
         }
     }
 }

@@ -12,9 +12,21 @@ namespace Spider {
         public List<MovieItem> movieList = new List<MovieItem>();
         public List<string> categoryList = new List<string>();
 
+        /// <summary>
+        /// 通过影片名返回MovieItem
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public MovieItem getItemByName(string name) {
+            foreach(MovieItem x in movieList) {
+                if (x.Name == name)
+                    return x; 
+            }
+            return new MovieItem("NULL");
+        }
 
         public bool downloadMovieInfoFromInternet() {
-            
+            //TODO: Finish it    
             return false;
         }
 

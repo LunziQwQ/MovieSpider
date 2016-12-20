@@ -78,11 +78,18 @@ namespace Spider {
             get { return category; }
         }
 
-        private string cover;
-        public string Cover {
-            set { cover = value; }
-            get { return cover; }
+        private string coverPath;
+        public string CoverPath {
+            set { coverPath = value; }
+            get { return coverPath; }
         }
+
+        private string downloadLink;
+        public string DownloadLink {
+            set { downloadLink = value; }
+            get { return downloadLink; }
+        }
+
         /// <summary>
         /// MovieItem的构造函数,除了片名和分类外，其他参数有默认值null，分类的默认值为default，片名无默认值
         /// </summary>
@@ -100,7 +107,7 @@ namespace Spider {
         public MovieItem(string name = "", string translatedTerm = "", string time = "",
             string language = "", string lengthOfFilm = "", string imdbScore = "",
             string director = "", string leadingRole = "", string summary = "",
-            string area = "", string category = "default", string cover = "") {
+            string area = "", string category = "default", string cover = "", string downloadLink = "") {
             Name = name;
             TranslatedTerm = translatedTerm;
             Time = time;
@@ -112,7 +119,8 @@ namespace Spider {
             Summary = summary;
             Area = area;
             Category = category;
-            Cover = cover;
+            CoverPath = cover;
+            this.downloadLink = downloadLink;
         }
 
         public bool save() {
@@ -131,7 +139,8 @@ namespace Spider {
             Summary + "&" +
             Area + "&" +
             Category + "&" +
-            Cover;
+            CoverPath + "&" +
+            downloadLink;
         }
 
         public static MovieItem create(string movieInfo) {
@@ -148,7 +157,8 @@ namespace Spider {
             tempItem.Summary = temp[8];
             tempItem.Area = temp[9];
             tempItem.Category = temp[10];
-            tempItem.Cover = temp[11];
+            tempItem.CoverPath = temp[11];
+            tempItem.downloadLink = temp[12];
             return tempItem;
         }
     }
