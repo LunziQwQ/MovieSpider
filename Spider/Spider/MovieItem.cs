@@ -1,4 +1,5 @@
-﻿namespace Spider {
+﻿using System.Text.RegularExpressions;
+namespace Spider {
     /// <summary>
     /// 数据类：一部电影
     /// </summary>
@@ -60,24 +61,24 @@
         }
 
         public string getMovieInfoString() {
-            return name + "&" +
-            translatedTerm + "&" +
-            time + "&" +
-            language + "&" +
-            lengthOfFilm + "&" +
-            imdbScore + "&" +
-            subtitle + "&" +
-            leadingRole + "&" +
-            summary + "&" +
-            area + "&" +
-            category + "&" +
-            coverURL + "&" +
+            return name + "&!&" +
+            translatedTerm + "&!&" +
+            time + "&!&" +
+            language + "&!&" +
+            lengthOfFilm + "&!&" +
+            imdbScore + "&!&" +
+            subtitle + "&!&" +
+            leadingRole + "&!&" +
+            summary + "&!&" +
+            area + "&!&" +
+            category + "&!&" +
+            coverURL + "&!&" +
             downloadLink;
         }
 
         public static MovieItem create(string movieInfo) {
             MovieItem tempItem = new MovieItem();
-            string[] temp = movieInfo.Split('&');
+            string[] temp = Regex.Split(movieInfo, "&!&");
             tempItem.name = temp[0];
             tempItem.translatedTerm = temp[1];
             tempItem.time = temp[2];

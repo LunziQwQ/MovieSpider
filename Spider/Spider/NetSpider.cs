@@ -14,6 +14,7 @@ namespace Spider {
         private Encoding code = Encoding.GetEncoding("GB2312");
         private List<string> toGrabURLs = new List<string>();
         public MainForm mainForm;
+        public System.Windows.Forms.Label label_count;
 
         public void startGrab(int deep, int interval) {
             _nowHTML = pageVisitor.getHtmlTextByURL(@"http://www.dygang.com/ys/", code);
@@ -24,14 +25,16 @@ namespace Spider {
             int count = 0;
             foreach (string x in toGrabURLs) {
                 MovieItem temp = getOneMovie(pageVisitor.getHtmlTextByURL(x, code));
-                MovieDB.getInstance().addItemFromNet(temp);
+                if (temp.name != "NoName") {
+                    MovieDB.getInstance().addItemFromNet(temp);
+                    label_count.Text = (Int32.Parse(label_count.Text) + 1).ToString();
+                }
                 count++;
-                mainForm.updateItemCount();
                 if (count % 10 == 0) mainForm.updateUsage();
                 if (count >= deep) break;
                 System.Threading.Thread.Sleep(interval);
             }
-
+            System.Windows.Forms.MessageBox.Show("Finish!");
         }
 
         public bool checkConnect() {
@@ -62,6 +65,7 @@ namespace Spider {
             movie.leadingRole = getLeadingRole();
             movie.summary = getSummary();
             movie.coverURL = getImageLink();
+            movie.downloadLink = getDownloadLink();
             return movie;
         }
 
@@ -98,9 +102,11 @@ namespace Spider {
         }
 
         private string getName() {
-            return getFirstRegex(@"片\s+名\s*(.*?)<")
+                string result = getFirstRegex(@"片\s+名\s*(.*?)<")
                 .Replace("/", "")
-                .Replace("\\", "");
+                .Replace("\\", "")
+                .Replace(":","");
+            return result == "" ? "NoName" : doReplace(result);
         }
 
         private string getTransTerm() {
@@ -109,6 +115,7 @@ namespace Spider {
 
         private string getCategory() {
             MatchCollection matches = getMoreMatches(@"类\s+别.*");
+            if(matches == null) return "default";
             string result = matches != null ? matches[0].Value : "default";
             return doReplace(result.Substring(5, result.Length - 5)).Substring(0,2);
         }

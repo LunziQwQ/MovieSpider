@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
-using System.Diagnostics;
 
 namespace Spider {
     public partial class MainForm: Form {
@@ -63,6 +62,7 @@ namespace Spider {
             if (TickCount == 1) {
                 netSpider.mainForm = this;
                 fileManager.mainform = this;
+                netSpider.label_count = label_ItemCount;
                 width = this.Width;
                 updateUsage();
                 bool isNetStatusOK = netSpider.checkConnect();
@@ -100,6 +100,7 @@ namespace Spider {
 
         private void btn_Remove_Click(object sender, EventArgs e) {
             movieViewer.Close();
+
             MovieItem mv = movieDB.getItemByName((string)listBox_movie.SelectedItem);
             if (mv.name == null || mv.name == "" ) {
                 MessageBox.Show("Error:未选择电影或电影无效，删除失败");
