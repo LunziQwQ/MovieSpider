@@ -1,19 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 
 namespace Spider {
     class FileManager {
+        public MainForm mainform;
         public static string rootPath =                   //缓存的根目录绝对路径
-            @"C:\User\" + System.Environment.UserName + @"\Documents\MovieCache\";
-        //private string categoryPath = "\\";       //根目录下的分类文件夹名
-        //private string namePath = "\\";           //以电影名为名的文件夹
+            @"C:\Users\" + System.Environment.UserName + @"\Documents\MovieCache\";
         private FileManager() {
             createRootPathExist();
         }
+        private PageVisitor pageVisitor = new PageVisitor();
+
         private static FileManager instance;
         public static FileManager getInstance() {
             if (instance == null)
@@ -22,7 +20,7 @@ namespace Spider {
         }
 
         public string getPath(MovieItem movie) {
-            return rootPath + movie.Category + "\\" + movie.Name;
+            return rootPath + movie.category + "\\" + movie.name;
         }
 
         private void createRootPathExist() {
@@ -41,10 +39,15 @@ namespace Spider {
         
         public bool saveMovieItem(MovieItem movie) {
             string fileName = getPath(movie) + "\\movieInfo.txt";
+
             try {
+                if (!Directory.Exists(getPath(movie)))//如果不存在就创建file文件夹
+                    Directory.CreateDirectory(getPath(movie));
+                pageVisitor.downloadFileByUrl(movie.coverURL, getPath(movie) + "\\", "cover");
+
                 File.WriteAllText(fileName, movie.getMovieInfoString());
             }catch (Exception e) {
-                System.Windows.Forms.MessageBox.Show(e.Message);
+                System.Windows.Forms.MessageBox.Show(e.Message+"path:"+getPath(movie));
                 return false;
             }
             return true;

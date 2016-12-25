@@ -30,11 +30,12 @@
             this.label4 = new System.Windows.Forms.Label();
             this.textBox_setInterval = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.btn_Stop = new System.Windows.Forms.Button();
             this.textBox_setDeep = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.btn_Grab = new System.Windows.Forms.Button();
             this.groupBox_Local = new System.Windows.Forms.GroupBox();
+            this.listBox_movie = new System.Windows.Forms.ListBox();
+            this.listBox_category = new System.Windows.Forms.ListBox();
             this.label_spaceUsage = new System.Windows.Forms.Label();
             this.staticLabel2 = new System.Windows.Forms.Label();
             this.label_ItemCount = new System.Windows.Forms.Label();
@@ -43,8 +44,6 @@
             this.btn_Remove = new System.Windows.Forms.Button();
             this.btn_CopyLink = new System.Windows.Forms.Button();
             this.timer_Main = new System.Windows.Forms.Timer(this.components);
-            this.listBox_category = new System.Windows.Forms.ListBox();
-            this.listBox_movie = new System.Windows.Forms.ListBox();
             this.groupBox_Net.SuspendLayout();
             this.groupBox_Local.SuspendLayout();
             this.SuspendLayout();
@@ -55,7 +54,6 @@
             this.groupBox_Net.Controls.Add(this.label4);
             this.groupBox_Net.Controls.Add(this.textBox_setInterval);
             this.groupBox_Net.Controls.Add(this.label1);
-            this.groupBox_Net.Controls.Add(this.btn_Stop);
             this.groupBox_Net.Controls.Add(this.textBox_setDeep);
             this.groupBox_Net.Controls.Add(this.label3);
             this.groupBox_Net.Controls.Add(this.btn_Grab);
@@ -107,15 +105,6 @@
             this.label1.TabIndex = 7;
             this.label1.Text = "Set grab interval:";
             // 
-            // btn_Stop
-            // 
-            this.btn_Stop.Location = new System.Drawing.Point(405, 81);
-            this.btn_Stop.Name = "btn_Stop";
-            this.btn_Stop.Size = new System.Drawing.Size(110, 45);
-            this.btn_Stop.TabIndex = 6;
-            this.btn_Stop.Text = "Stop :(";
-            this.btn_Stop.UseVisualStyleBackColor = true;
-            // 
             // textBox_setDeep
             // 
             this.textBox_setDeep.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -142,7 +131,7 @@
             this.btn_Grab.Location = new System.Drawing.Point(405, 15);
             this.btn_Grab.Margin = new System.Windows.Forms.Padding(8);
             this.btn_Grab.Name = "btn_Grab";
-            this.btn_Grab.Size = new System.Drawing.Size(110, 62);
+            this.btn_Grab.Size = new System.Drawing.Size(110, 110);
             this.btn_Grab.TabIndex = 1;
             this.btn_Grab.Text = "Grab!";
             this.btn_Grab.UseVisualStyleBackColor = true;
@@ -166,6 +155,26 @@
             this.groupBox_Local.TabIndex = 2;
             this.groupBox_Local.TabStop = false;
             this.groupBox_Local.Text = "Local Viewer";
+            // 
+            // listBox_movie
+            // 
+            this.listBox_movie.FormattingEnabled = true;
+            this.listBox_movie.ItemHeight = 20;
+            this.listBox_movie.Location = new System.Drawing.Point(280, 13);
+            this.listBox_movie.Name = "listBox_movie";
+            this.listBox_movie.Size = new System.Drawing.Size(235, 364);
+            this.listBox_movie.TabIndex = 8;
+            this.listBox_movie.SelectedIndexChanged += new System.EventHandler(this.listBox_movie_SelectedIndexChanged);
+            // 
+            // listBox_category
+            // 
+            this.listBox_category.FormattingEnabled = true;
+            this.listBox_category.ItemHeight = 20;
+            this.listBox_category.Location = new System.Drawing.Point(146, 13);
+            this.listBox_category.Name = "listBox_category";
+            this.listBox_category.Size = new System.Drawing.Size(128, 364);
+            this.listBox_category.TabIndex = 7;
+            this.listBox_category.SelectedIndexChanged += new System.EventHandler(this.listBox_category_SelectedIndexChanged);
             // 
             // label_spaceUsage
             // 
@@ -239,26 +248,6 @@
             this.timer_Main.Interval = 10;
             this.timer_Main.Tick += new System.EventHandler(this.timer_Main_Tick);
             // 
-            // listBox_category
-            // 
-            this.listBox_category.FormattingEnabled = true;
-            this.listBox_category.ItemHeight = 20;
-            this.listBox_category.Location = new System.Drawing.Point(146, 13);
-            this.listBox_category.Name = "listBox_category";
-            this.listBox_category.Size = new System.Drawing.Size(128, 364);
-            this.listBox_category.TabIndex = 7;
-            this.listBox_category.SelectedIndexChanged += new System.EventHandler(this.listBox_category_SelectedIndexChanged);
-            // 
-            // listBox_movie
-            // 
-            this.listBox_movie.FormattingEnabled = true;
-            this.listBox_movie.ItemHeight = 20;
-            this.listBox_movie.Location = new System.Drawing.Point(280, 13);
-            this.listBox_movie.Name = "listBox_movie";
-            this.listBox_movie.Size = new System.Drawing.Size(235, 364);
-            this.listBox_movie.TabIndex = 8;
-            this.listBox_movie.SelectedIndexChanged += new System.EventHandler(this.listBox_movie_SelectedIndexChanged);
-            // 
             // MainForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -268,7 +257,6 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
             this.Text = "MovieSpider";
-            this.Load += new System.EventHandler(this.MainForm_Load);
             this.groupBox_Net.ResumeLayout(false);
             this.groupBox_Net.PerformLayout();
             this.groupBox_Local.ResumeLayout(false);
@@ -293,7 +281,6 @@
         private System.Windows.Forms.TextBox textBox_setDeep;
         private System.Windows.Forms.TextBox textBox_setInterval;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button btn_Stop;
         private System.Windows.Forms.Label label_netStatus;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Timer timer_Main;

@@ -31,7 +31,7 @@
             this.label_lang = new System.Windows.Forms.Label();
             this.label_length = new System.Windows.Forms.Label();
             this.label_IMDB = new System.Windows.Forms.Label();
-            this.label_dir = new System.Windows.Forms.Label();
+            this.label_sub = new System.Windows.Forms.Label();
             this.label_leading = new System.Windows.Forms.Label();
             this.label_area = new System.Windows.Forms.Label();
             this.label_category = new System.Windows.Forms.Label();
@@ -75,10 +75,10 @@
             resources.ApplyResources(this.label_IMDB, "label_IMDB");
             this.label_IMDB.Name = "label_IMDB";
             // 
-            // label_dir
+            // label_sub
             // 
-            resources.ApplyResources(this.label_dir, "label_dir");
-            this.label_dir.Name = "label_dir";
+            resources.ApplyResources(this.label_sub, "label_sub");
+            this.label_sub.Name = "label_sub";
             // 
             // label_leading
             // 
@@ -109,7 +109,7 @@
             this.Controls.Add(this.label_category);
             this.Controls.Add(this.label_area);
             this.Controls.Add(this.label_leading);
-            this.Controls.Add(this.label_dir);
+            this.Controls.Add(this.label_sub);
             this.Controls.Add(this.label_IMDB);
             this.Controls.Add(this.label_length);
             this.Controls.Add(this.label_lang);
@@ -135,7 +135,7 @@
         private System.Windows.Forms.Label label_lang;
         private System.Windows.Forms.Label label_length;
         private System.Windows.Forms.Label label_IMDB;
-        private System.Windows.Forms.Label label_dir;
+        private System.Windows.Forms.Label label_sub;
         private System.Windows.Forms.Label label_leading;
         private System.Windows.Forms.Label label_area;
         private System.Windows.Forms.Label label_category;

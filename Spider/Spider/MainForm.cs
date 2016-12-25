@@ -8,7 +8,7 @@ namespace Spider {
         PageVisitor pageVisitor = new PageVisitor();
         NetSpider netSpider = new NetSpider();
         FileManager fileManager = FileManager.getInstance();
-        MovieDB movieDB = new MovieDB();
+        MovieDB movieDB = MovieDB.getInstance();
         public static int width;
         public static Point location;
 
@@ -52,16 +52,18 @@ namespace Spider {
         }
         #endregion
 
-        private void MainForm_Load(object sender, EventArgs e) {
-            movieDB.initMovieDBFromLocalFile();
-        }
 
         private int TickCount = 0;
         private void timer_Main_Tick(object sender, EventArgs e) {
             TickCount++;
-            if(TickCount == 1) {
+            location = this.Location;
+            if (movieViewer != null)
+                movieViewer.updateLocation();
+
+            if (TickCount == 1) {
+                netSpider.mainForm = this;
+                fileManager.mainform = this;
                 width = this.Width;
-                location = this.Location;
                 updateUsage();
                 bool isNetStatusOK = netSpider.checkConnect();
                 label_netStatus.Text = isNetStatusOK ? "OK" : "Failed";
@@ -70,7 +72,6 @@ namespace Spider {
                 listBox_ShowCategoryItemList();
                 listBox_ShowMovieItemList();
             }
-
             updateItemCount();
 
             if (TickCount % 100 == 0)
@@ -78,38 +79,45 @@ namespace Spider {
                 
         }
         
-        private void updateUsage() {
+        public void updateUsage() {
             label_spaceUsage.Text = (fileManager.getCacheUsage() / 1000).ToString() + " KB";
         }
 
-        private void updateItemCount() {
+        public void updateItemCount() {
             label_ItemCount.Text = movieDB.movieList.Count.ToString();
         }
         #region Buttons's Events
         private void btn_CopyLink_Click(object sender, EventArgs e) {
-            string text = movieDB.getItemByName((string)listBox_movie.SelectedItem).DownloadLink;
+            string text = movieDB.getItemByName((string)listBox_movie.SelectedItem).downloadLink;
             if(text == null || text == "") {
                 MessageBox.Show("Error:未选择电影或电影无效，加入剪切板失败");
                 return;
             }
             Clipboard.SetDataObject(text, true);
+            MessageBox.Show("下载链接已加入剪贴板");
+
         }
 
         private void btn_Remove_Click(object sender, EventArgs e) {
+            movieViewer.Close();
             MovieItem mv = movieDB.getItemByName((string)listBox_movie.SelectedItem);
-            if (mv.Name == null || mv.Name == "" ) {
+            if (mv.name == null || mv.name == "" ) {
                 MessageBox.Show("Error:未选择电影或电影无效，删除失败");
                 return;
             }
             movieDB.movieList.Remove(mv);
             fileManager.deleteMovieItem(mv);
+            listBox_ShowCategoryItemList();
+            listBox_ShowMovieItemList();
         }
 
         private void btn_Grab_Click(object sender, EventArgs e) {
             if (!netSpider.isNetStatusOK) {
                 MessageBox.Show("Net status is Failed.The Spider can't grab without internet.");
             } else {
-                // TODO: Grabing!
+                int _deep = Int32.Parse(textBox_setDeep.Text),
+                    _interval = Int32.Parse(textBox_setInterval.Text);
+                netSpider.startGrab(_deep, _interval);
             }
         }
 
@@ -128,6 +136,9 @@ namespace Spider {
         }
 
         private void btn_Reload_Click(object sender, EventArgs e) {
+            if (movieViewer != null) {
+                movieViewer.Close();
+            }
             listBox_ShowCategoryItemList();
             listBox_ShowMovieItemList();
         }
@@ -142,14 +153,13 @@ namespace Spider {
 
         private void listBox_ShowMovieItemList(string category = "undefined") {
             listBox_movie.Items.Clear();
-            Debug.Print(category);
             if (category == "undefined" && listBox_category.Items.Count > 0) { 
                 category = (String)listBox_category.Items[0];
             }
             if(category != "undefined") { 
                 foreach (MovieItem x in movieDB.movieList) {
-                    if (x.Category == category) {
-                        listBox_movie.Items.Add(x.Name);
+                    if (x.category == category) {
+                        listBox_movie.Items.Add(x.name);
                     }
                 }
             }

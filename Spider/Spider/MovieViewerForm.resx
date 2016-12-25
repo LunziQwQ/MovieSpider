@@ -336,41 +336,38 @@
   <data name="&gt;&gt;label_IMDB.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
-  <data name="label_dir.AutoSize" type="System.Boolean, mscorlib">
+  <data name="label_sub.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="label_dir.Font" type="System.Drawing.Font, System.Drawing">
+  <data name="label_sub.Font" type="System.Drawing.Font, System.Drawing">
     <value>Consolas, 9.75pt</value>
   </data>
-  <data name="label_dir.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="label_sub.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="label_dir.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="label_sub.Location" type="System.Drawing.Point, System.Drawing">
     <value>138, 123</value>
   </data>
-  <data name="label_dir.Size" type="System.Drawing.Size, System.Drawing">
-    <value>35, 15</value>
+  <data name="label_sub.Size" type="System.Drawing.Size, System.Drawing">
+    <value>70, 15</value>
   </data>
-  <data name="label_dir.TabIndex" type="System.Int32, mscorlib">
+  <data name="label_sub.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
   </data>
-  <data name="label_dir.Text" xml:space="preserve">
-    <value>DIR:</value>
+  <data name="label_sub.Text" xml:space="preserve">
+    <value>Subtitle:</value>
   </data>
-  <data name="&gt;&gt;label_dir.Name" xml:space="preserve">
-    <value>label_dir</value>
+  <data name="&gt;&gt;label_sub.Name" xml:space="preserve">
+    <value>label_sub</value>
   </data>
-  <data name="&gt;&gt;label_dir.Type" xml:space="preserve">
+  <data name="&gt;&gt;label_sub.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;label_dir.Parent" xml:space="preserve">
+  <data name="&gt;&gt;label_sub.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;label_dir.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;label_sub.ZOrder" xml:space="preserve">
     <value>4</value>
-  </data>
-  <data name="label_leading.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
   </data>
   <data name="label_leading.Font" type="System.Drawing.Font, System.Drawing">
     <value>Consolas, 9.75pt</value>
@@ -382,7 +379,7 @@
     <value>9, 175</value>
   </data>
   <data name="label_leading.Size" type="System.Drawing.Size, System.Drawing">
-    <value>98, 15</value>
+    <value>339, 49</value>
   </data>
   <data name="label_leading.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
@@ -468,9 +465,6 @@
   <data name="&gt;&gt;label_category.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="label_summary.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="label_summary.Font" type="System.Drawing.Font, System.Drawing">
     <value>Consolas, 9.75pt</value>
   </data>
@@ -478,10 +472,10 @@
     <value>NoControl</value>
   </data>
   <data name="label_summary.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 224</value>
+    <value>12, 233</value>
   </data>
   <data name="label_summary.Size" type="System.Drawing.Size, System.Drawing">
-    <value>63, 15</value>
+    <value>336, 113</value>
   </data>
   <data name="label_summary.TabIndex" type="System.Int32, mscorlib">
     <value>11</value>
@@ -508,7 +502,7 @@
     <value>6, 13</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>304, 355</value>
+    <value>360, 355</value>
   </data>
   <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
