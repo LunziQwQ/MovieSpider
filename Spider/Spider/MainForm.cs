@@ -4,19 +4,24 @@ using System.Windows.Forms;
 
 namespace Spider {
     public partial class MainForm: Form {
+
+        //要用到的实例
         PageVisitor pageVisitor = new PageVisitor();
         NetSpider netSpider = new NetSpider();
         FileManager fileManager = FileManager.getInstance();
         MovieDB movieDB = MovieDB.getInstance();
-        public static int width;
-        public static Point location;
 
+        //电影详情窗口
         private MovieViewerForm movieViewer;
+
+        public static int width;        //主窗口的宽度
+        public static Point location;   //主窗口的位置
 
         public MainForm() {
             InitializeComponent();
         }
-        #region check textBox input
+
+        #region 检测两个输入框是否合法
         private string _setDeepTemp = "1", _setIntervalTemp = "10";
         private void textBox_setInterval_TextChanged(object sender, EventArgs e) {
             foreach (char x in textBox_setInterval.Text) {
@@ -51,7 +56,7 @@ namespace Spider {
         }
         #endregion
 
-
+        #region 使用计时器初始化主窗口，并定时刷新磁盘用量及电影数量
         private int TickCount = 0;
         private void timer_Main_Tick(object sender, EventArgs e) {
             TickCount++;
@@ -78,14 +83,22 @@ namespace Spider {
                 updateUsage();
                 
         }
-        
+        #endregion
+
+        /// <summary>
+        /// 更新本地磁盘用量显示
+        /// </summary>
         public void updateUsage() {
             label_spaceUsage.Text = (fileManager.getCacheUsage() / 1000).ToString() + " KB";
         }
 
+        /// <summary>
+        /// 更新本地电影数量显示
+        /// </summary>
         public void updateItemCount() {
             label_ItemCount.Text = movieDB.movieList.Count.ToString();
         }
+
         #region Buttons's Events
         private void btn_CopyLink_Click(object sender, EventArgs e) {
             string text = movieDB.getItemByName((string)listBox_movie.SelectedItem).downloadLink;
@@ -95,12 +108,18 @@ namespace Spider {
             }
             Clipboard.SetDataObject(text, true);
             MessageBox.Show("下载链接已加入剪贴板");
+        }
 
+        private void btn_Reload_Click(object sender, EventArgs e) {
+            if (movieViewer != null) {
+                movieViewer.Close();
+            }
+            listBox_ShowCategoryItemList();
+            listBox_ShowMovieItemList();
         }
 
         private void btn_Remove_Click(object sender, EventArgs e) {
             movieViewer.Close();
-
             MovieItem mv = movieDB.getItemByName((string)listBox_movie.SelectedItem);
             if (mv.name == null || mv.name == "" ) {
                 MessageBox.Show("Error:未选择电影或电影无效，删除失败");
@@ -121,9 +140,7 @@ namespace Spider {
                 netSpider.startGrab(_deep, _interval);
             }
         }
-
         #endregion
-
 
         private void listBox_ShowCategoryItemList() {
             listBox_category.Items.Clear();
@@ -136,12 +153,18 @@ namespace Spider {
             listBox_ShowMovieItemList((String)listBox_category.SelectedItem);
         }
 
-        private void btn_Reload_Click(object sender, EventArgs e) {
-            if (movieViewer != null) {
-                movieViewer.Close();
+        private void listBox_ShowMovieItemList(string category = "undefined") {
+            listBox_movie.Items.Clear();
+            if (category == "undefined" && listBox_category.Items.Count > 0) {
+                category = (String)listBox_category.Items[0];
             }
-            listBox_ShowCategoryItemList();
-            listBox_ShowMovieItemList();
+            if (category != "undefined") {
+                foreach (MovieItem x in movieDB.movieList) {
+                    if (x.category == category) {
+                        listBox_movie.Items.Add(x.name);
+                    }
+                }
+            }
         }
 
         private void listBox_movie_SelectedIndexChanged(object sender, EventArgs e) {
@@ -150,20 +173,6 @@ namespace Spider {
             }
             movieViewer = new MovieViewerForm();
             movieViewer.init(movieDB.getItemByName((string)listBox_movie.SelectedItem));
-        }
-
-        private void listBox_ShowMovieItemList(string category = "undefined") {
-            listBox_movie.Items.Clear();
-            if (category == "undefined" && listBox_category.Items.Count > 0) { 
-                category = (String)listBox_category.Items[0];
-            }
-            if(category != "undefined") { 
-                foreach (MovieItem x in movieDB.movieList) {
-                    if (x.category == category) {
-                        listBox_movie.Items.Add(x.name);
-                    }
-                }
-            }
         }
     }
 }
